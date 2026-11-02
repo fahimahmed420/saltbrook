@@ -1,29 +1,45 @@
 import Link from "next/link";
-import { areas, nav, site } from "@/content/site";
-import { Container } from "./ui";
+import { areas, nav, services, site } from "@/content/site";
+import { Container, Icon } from "./ui";
 import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-teal-2 pb-28 text-cream-2 lg:pb-10">
-      <Container className="grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="bg-spruce-2 pb-28 text-mint/80 lg:pb-0">
+      <Container className="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo light />
-          <p className="mt-4 max-w-xs text-sm">{site.tagline}</p>
-          <p className="mt-4 text-sm">
-            <a href={site.phoneHref} className="inline-flex min-h-11 items-center font-semibold text-cream hover:text-copper">
-              {site.phone}
-            </a>
-            <br />
-            {site.email}
+          <p className="mt-5 max-w-xs leading-relaxed">{site.tagline}</p>
+          <a href={site.phoneHref} className="mt-6 inline-flex min-h-11 items-center gap-2 font-display text-2xl font-bold text-paper hover:text-gold">
+            <Icon name="phone" className="h-5 w-5" /> {site.phone}
+          </a>
+          <p className="mt-1 flex min-h-11 items-center gap-2 select-all">
+            <Icon name="mail" className="h-4 w-4" /> {site.email}
           </p>
         </div>
         <div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-[0.14em] text-cream">Pages</h2>
-          <ul className="mt-3 space-y-1 text-sm">
-            {[{ href: "/", label: "Home" }, ...nav].map((l) => (
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">Services</h2>
+          <ul className="mt-4 space-y-1">
+            {services.map((s) => (
+              <li key={s.id}>
+                <Link href={`/services#${s.id}`} className="inline-flex min-h-11 items-center hover:text-paper">
+                  {s.nav}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/comfort-club" className="inline-flex min-h-11 items-center hover:text-paper">
+                Comfort Club
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">Company</h2>
+          <ul className="mt-4 space-y-1">
+            {[...nav.slice(2), { href: "/book", label: "Book online" }, { href: "/privacy", label: "Privacy" }, { href: "/credits", label: "Credits" }].map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-cream">
+                <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-paper">
                   {l.label}
                 </Link>
               </li>
@@ -31,42 +47,30 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-[0.14em] text-cream">We serve</h2>
-          <ul className="mt-3 space-y-1 text-sm">
-            {areas.map((a) => (
-              <li key={a.name} className="flex min-h-9 items-center">
-                {a.name}, NC
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="font-display text-sm font-bold uppercase tracking-[0.14em] text-cream">Hours</h2>
-          <ul className="mt-3 space-y-2 text-sm">
+          <h2 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">Hours</h2>
+          <ul className="mt-4 space-y-3">
             {site.hours.map((h) => (
-              <li key={h.days}>
-                <span className="block text-cream">{h.days}</span>
-                {h.close ? `${h.open} – ${h.close}` : h.open}
+              <li key={h.days} className="flex justify-between gap-4 border-b border-white/10 pb-3">
+                <span className="text-paper">{h.days}</span>
+                <span className="text-right">{h.time}</span>
               </li>
             ))}
           </ul>
+          <p className="mt-5 text-sm">Serving {areas.map((a) => a.name).join(", ")}, NC.</p>
         </div>
       </Container>
-      <Container className="border-t border-cream/15 pt-6 text-sm">
-        <p className="max-w-3xl">
-          <strong className="text-cream">Saltbrook Heating &amp; Air is a fictional company created by Zordev as a portfolio demo. Nothing here is for sale.</strong>{" "}
-          <a href={site.caseStudyUrl} className="underline underline-offset-4 hover:text-cream">
-            See the case study
-          </a>
-          .
-        </p>
-        <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
-          <span>© 2026 Zordev</span>
-          <Link href="/credits" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
-            Credits
-          </Link>
-        </p>
-      </Container>
+      <div className="border-t border-white/10">
+        <Container className="flex flex-col gap-3 py-6 text-sm md:flex-row md:items-center md:justify-between">
+          <p>© 2026 {site.name}. All rights reserved.</p>
+          <p>
+            A fictional company designed and built by{" "}
+            <a href={site.caseStudyUrl} className="font-semibold text-paper underline-offset-4 hover:underline">
+              Zordev
+            </a>{" "}
+            as a portfolio project. Nothing here is for sale.
+          </p>
+        </Container>
+      </div>
     </footer>
   );
 }

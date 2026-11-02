@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = "image/png";
 
 export default function Image() {
-  return ogImage("Services", "Repair, replace or keep it running.");
+  return ogImage("Services", "Repair, replace, or keep it running.");
 }

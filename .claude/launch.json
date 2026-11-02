@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "saltbrook", "runtimeExecutable": "npx", "runtimeArgs": ["next", "start", "-p", "3006"], "port": 3006 }
+  ]
+}

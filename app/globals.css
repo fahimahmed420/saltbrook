@@ -1,22 +1,34 @@
 @import "tailwindcss";
 
-/* Warm trade brand: cream paper, deep teal, copper. Light only by design (a contractor's site, printed-feeling). */
+/* Saltbrook: deep spruce, warm copper, linen. A confident trade brand, light theme by design. */
 @theme {
-  --color-cream: #f6f0e4;
-  --color-cream-2: #ede4d2;
-  --color-paper: #fffcf6;
-  --color-teal: #0f4c4a;
-  --color-teal-2: #0a3735;
-  --color-ink: #1d2523;
-  --color-muted: #55615e;
-  --color-line: #ddd2bd;
-  --color-copper: #b5562b;
-  --color-copper-2: #96441f;
+  --color-linen: #f7f3ec;
+  --color-sand: #ece4d6;
+  --color-paper: #fffdf9;
+  --color-spruce: #0c3b39;
+  --color-spruce-2: #072927;
+  --color-spruce-3: #145653;
+  --color-mint: #cfe7df;
+  --color-ink: #17201f;
+  --color-muted: #586663;
+  --color-line: #e2d9c9;
+  --color-copper: #c4622d;
+  --color-copper-2: #a54f20;
+  --color-gold: #f2b544;
   --font-display: var(--font-bricolage), "Arial Narrow", system-ui, sans-serif;
-  --font-sans: var(--font-source), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-card: 0 1px 2px rgb(12 59 57 / 0.06), 0 12px 32px -12px rgb(12 59 57 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(12 59 57 / 0.08), 0 28px 60px -20px rgb(12 59 57 / 0.35);
+  --animate-marquee: marquee 40s linear infinite;
 }
 
-/* Touch screens have no hover: hover styles play while pressing instead (same rule as zordev.com). */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Touch screens have no hover: hover styles play while pressing instead. */
 @custom-variant hover {
   @media (hover: hover) {
     &:hover {
@@ -31,32 +43,68 @@
 }
 
 html {
-  /* Keep focused fields and anchor targets clear of the sticky header and the mobile call bar. */
-  scroll-padding-top: 6rem;
+  /* Keep focused fields and anchor targets clear of the sticky header and the mobile action bar. */
+  scroll-padding-top: 7rem;
   scroll-padding-bottom: 6.5rem;
+  scroll-behavior: smooth;
   color-scheme: light;
   -webkit-text-size-adjust: 100%;
 }
 body {
-  background: var(--color-cream);
+  background: var(--color-linen);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 :focus-visible {
   outline: 3px solid var(--color-copper);
   outline-offset: 3px;
+  border-radius: 6px;
 }
+::selection {
+  background: var(--color-mint);
+  color: var(--color-spruce-2);
+}
+
+/* Scroll reveal: content is visible without JS; the "js" class opts in to the animation. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal].in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Photo cards: gentle zoom on hover/press. */
+.zoom-img img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.group:hover .zoom-img img {
+  transform: scale(1.05);
+}
+
 @media (hover: none) {
   a,
-  button {
+  button,
+  summary,
+  label {
     -webkit-tap-highlight-color: transparent;
   }
   a:active,
@@ -64,12 +112,19 @@ h3 {
     transform: scale(0.98);
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }

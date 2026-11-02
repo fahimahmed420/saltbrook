@@ -1,15 +1,15 @@
-/** Saltbrook mark: a copper flame over a teal snowflake arm, i.e. heat and cool in one glyph. */
+/** Saltbrook mark: a copper flame over a snowflake arm, heat and cool in one glyph. */
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <span className="flex items-center gap-2.5">
-      <svg aria-hidden="true" viewBox="0 0 40 40" className="h-9 w-9 shrink-0">
-        <rect width="40" height="40" rx="9" className={light ? "fill-cream" : "fill-teal"} />
-        <path d="M20 7c3 4.2 6.5 7.3 6.5 12a6.5 6.5 0 0 1-13 0c0-2.6 1.3-4.4 2.8-6 .2 2 1.2 3.3 2.6 3.8C18.4 13.8 18.6 10.4 20 7Z" className="fill-copper" />
-        <path d="M11 31h18M14 27.5l3 3.5-3 3.5M26 27.5l-3 3.5 3 3.5" fill="none" strokeWidth="2.2" strokeLinecap="round" className={light ? "stroke-teal" : "stroke-cream"} />
+    <span className="flex items-center gap-3">
+      <svg aria-hidden="true" viewBox="0 0 40 40" className="h-10 w-10 shrink-0">
+        <rect width="40" height="40" rx="11" className={light ? "fill-paper" : "fill-spruce"} />
+        <path d="M20 6.5c3.2 4.3 6.8 7.5 6.8 12.3a6.8 6.8 0 0 1-13.6 0c0-2.7 1.4-4.6 3-6.3.2 2.1 1.2 3.4 2.7 4C18.3 13.4 18.6 9.9 20 6.5Z" className="fill-copper" />
+        <path d="M10.5 31h19M14 27.2l3.4 3.8-3.4 3.8M26 27.2 22.6 31l3.4 3.8" fill="none" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" className={light ? "stroke-spruce" : "stroke-mint"} />
       </svg>
-      <span className={`font-display text-lg font-bold leading-none tracking-tight ${light ? "text-cream" : "text-teal"}`}>
+      <span className={`font-display text-xl font-extrabold leading-none tracking-tight ${light ? "text-paper" : "text-spruce"}`}>
         Saltbrook
-        <span className={`block text-xs font-semibold uppercase tracking-[0.16em] ${light ? "text-cream-2" : "text-copper"}`}>Heating &amp; Air</span>
+        <span className={`mt-1 block text-[0.72rem] font-bold uppercase tracking-[0.22em] ${light ? "text-mint" : "text-copper"}`}>Heating &amp; Air</span>
       </span>
     </span>
   );
