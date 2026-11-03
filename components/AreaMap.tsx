@@ -35,7 +35,7 @@ export function AreaMap() {
           <text x={t.x} y={t.y - (t.home ? 42 : 24)} textAnchor="middle" fill="#fffdf9" style={{ font: "700 22px var(--font-bricolage), sans-serif" }}>
             {t.name}
           </text>
-          <text x={t.x} y={t.y + (t.home ? 44 : 32)} textAnchor="middle" fill={t.eta === "Same day" ? "#f2b544" : "#cfe7df"} style={{ font: "600 15px var(--font-inter), sans-serif" }}>
+          <text x={t.x} y={t.y + (t.home ? 44 : 32)} textAnchor="middle" fill={t.eta === "Same day" ? "#f2b544" : "#cfe7df"} style={{ font: "600 15px var(--font-instrument), sans-serif" }}>
             {t.eta}
           </text>
         </g>

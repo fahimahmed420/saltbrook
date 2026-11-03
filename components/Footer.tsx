@@ -5,8 +5,8 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-spruce-2 pb-28 text-mint/80 lg:pb-0">
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <footer className="relative overflow-hidden bg-spruce-2 pb-28 text-mint/80 lg:pb-0">
+      <Container className="relative grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo light />
           <p className="mt-5 max-w-xs leading-relaxed">{site.tagline}</p>
@@ -59,7 +59,13 @@ export function Footer() {
           <p className="mt-5 text-sm">Serving {areas.map((a) => a.name).join(", ")}, NC.</p>
         </div>
       </Container>
-      <div className="border-t border-white/10">
+
+      {/* Oversized wordmark, the last thing on every page. */}
+      <div aria-hidden="true" className="pointer-events-none select-none px-2 leading-none">
+        <p className="condensed -mb-[0.19em] whitespace-nowrap text-center font-display text-[21.5vw] font-extrabold tracking-[-0.05em] text-paper/[0.07]">Saltbrook</p>
+      </div>
+
+      <div className="relative border-t border-white/10 bg-spruce-2">
         <Container className="flex flex-col gap-3 py-6 text-sm md:flex-row md:items-center md:justify-between">
           <p>© 2026 {site.name}. All rights reserved.</p>
           <p>

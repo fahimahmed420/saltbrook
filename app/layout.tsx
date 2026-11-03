@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/site";
 import { Header } from "@/components/Header";
@@ -8,8 +8,10 @@ import { CallBar } from "@/components/CallBar";
 import { DemoBadge } from "@/components/DemoBadge";
 import { Reveal } from "@/components/Reveal";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-bricolage", display: "swap" });
-const body = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Display: the full variable font, so headlines can use the optical-size and width axes (condensed numerals, tight big type).
+const display = Bricolage_Grotesque({ subsets: ["latin"], weight: "variable", axes: ["opsz", "wdth"], variable: "--font-bricolage", display: "swap" });
+// Body: a humanist sans with real italics; quieter than Bricolage so the two never fight.
+const body = Instrument_Sans({ subsets: ["latin"], weight: "variable", style: ["normal", "italic"], axes: ["wdth"], variable: "--font-instrument", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -24,7 +26,7 @@ export const viewport: Viewport = { themeColor: "#0c3b39" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US" className={`${display.variable} ${body.variable}`}>
-      <body className="flex min-h-screen flex-col">
+      <body className="grain flex min-h-screen flex-col">
         <a href="#main" className="sr-only z-[60] rounded-full bg-spruce px-5 py-3 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
           Skip to content
         </a>

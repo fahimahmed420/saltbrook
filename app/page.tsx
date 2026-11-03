@@ -1,19 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { areas, club, services, site, visitSteps } from "@/content/site";
-import { Arrow, ButtonLink, CallButton, Container, Eyebrow, Icon, SectionHead, Stars } from "@/components/ui";
+import { Arrow, ButtonLink, CallButton, Container, Eyebrow, Icon, SectionHead, Stars, Ticker, Words } from "@/components/ui";
 import { Counter } from "@/components/Counter";
 import { Reviews } from "@/components/Reviews";
 import { Faq } from "@/components/Faq";
 import { OpenNow } from "@/components/OpenNow";
+import { ThermoDial } from "@/components/ThermoDial";
 import { JsonLd } from "@/lib/seo";
 
-const trust = [
-  { icon: "tag", title: "Upfront, written prices", body: "You approve the price before any work starts." },
-  { icon: "clock", title: "Same-day repairs", body: "Book before noon and we're usually there today." },
-  { icon: "shield", title: "10-year warranty", body: "Parts and labor on every new system we install." },
-  { icon: "card", title: "0% financing", body: "12 months interest-free on approved credit." },
-];
+const promises = ["Upfront, written prices", "Same-day repairs", "10-year install warranty", "0% financing for 12 months", "Licensed & insured", "No overtime fees for members"];
 
 export default function Home() {
   return (
@@ -38,88 +34,73 @@ export default function Home() {
         }}
       />
 
-      {/* 1. Hero */}
-      <section className="relative isolate overflow-hidden bg-spruce-2">
-        <Image src="/images/family.jpg" alt="A family relaxing together on the sofa at home" fill priority sizes="100vw" className="-z-10 object-cover object-[70%_30%]" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-spruce-2/90 via-spruce-2/75 to-spruce-2/95 lg:bg-gradient-to-r lg:from-spruce-2 lg:via-spruce-2/80 lg:to-spruce-2/10" />
-        <Container className="grid items-center gap-12 pb-16 pt-12 sm:pt-16 lg:min-h-[44rem] lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
-          <div className="text-paper">
-            <div data-reveal>
-              <OpenNow />
-            </div>
-            <h1 data-reveal style={{ ["--d" as string]: "80ms" }} className="mt-6 text-[2.75rem] font-extrabold leading-[0.98] sm:text-7xl lg:text-[5.4rem]">
-              Comfort you can <span className="text-gold">count on,</span> every season.
-            </h1>
-            <p data-reveal style={{ ["--d" as string]: "160ms" }} className="mt-6 max-w-xl text-lg leading-relaxed text-mint sm:text-xl">
-              Same-day AC and heat pump repair, honest advice on new systems, and technicians who show you the price before they pick up a tool. Across Raleigh, Durham, Cary, Apex and Wake Forest since {site.founded}.
-            </p>
-            <div data-reveal style={{ ["--d" as string]: "240ms" }} className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="/book">
-                Book a visit <Icon name="arrow" className="h-4 w-4" />
-              </ButtonLink>
-              <CallButton variant="light" />
-            </div>
-            <div data-reveal style={{ ["--d" as string]: "320ms" }} className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <div className="flex items-center gap-3">
-                <Stars className="h-5 w-5" />
-                <span className="text-sm">
-                  <strong className="text-paper">4.9 out of 5</strong>
-                  <span className="text-mint/80"> · 1,240 local reviews</span>
-                </span>
+      {/* 1. Hero: the photo fills the screen; the booking card hangs over the edge into the next section. */}
+      <section className="relative isolate bg-spruce-2">
+        <div className="duotone veil absolute inset-0 -z-10 overflow-hidden">
+          <Image src="/images/family.jpg" alt="A family relaxing together on the sofa at home" fill priority sizes="100vw" className="object-cover object-[72%_30%]" />
+        </div>
+        <Container className="flex min-h-[calc(100svh-4.5rem)] flex-col justify-end pb-0 pt-10 sm:pt-16 lg:min-h-[calc(100svh-7.5rem)]">
+          <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+            <div className="pb-4 text-paper lg:pb-24">
+              <div data-reveal>
+                <OpenNow />
               </div>
-              <div className="flex items-center gap-2 text-sm text-mint/90">
-                <Icon name="shield" className="h-5 w-5 text-gold" /> Licensed, insured &amp; background-checked
-              </div>
-            </div>
-          </div>
-
-          {/* Quick booking card */}
-          <div data-reveal style={{ ["--d" as string]: "200ms" }} className="rounded-[2rem] bg-paper p-6 shadow-[var(--shadow-lift)] sm:p-8">
-            <p className="font-display text-2xl font-bold text-spruce">What can we help with?</p>
-            <p className="mt-1 text-muted">Pick one and choose a time. It takes about a minute.</p>
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {services.map((s, i) => (
-                <Link
-                  key={s.id}
-                  href={`/book?service=${s.id}`}
-                  className="group flex flex-col gap-3 rounded-2xl border-2 border-line bg-linen p-4 transition-all hover:-translate-y-0.5 hover:border-copper hover:bg-paper"
-                >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-spruce text-mint transition-colors group-hover:bg-copper group-hover:text-white">
-                    <Icon name={["snow", "flame", "home", "thermo"][i]} className="h-5 w-5" />
+              <h1 className="mt-7 text-[3.15rem] font-extrabold leading-[0.92] tracking-[-0.04em] sm:text-[5.4rem] lg:text-[7rem] xl:text-[7.8rem]">
+                <Words text="Comfort you can *count on,* every season." delay={80} />
+              </h1>
+              <p data-reveal style={{ ["--d" as string]: "320ms" }} className="mt-7 max-w-xl text-lg leading-relaxed text-mint sm:text-xl">
+                Same-day AC and heat pump repair, honest advice on new systems, and technicians who show you the price before they pick up a tool. Raleigh, Durham, Cary, Apex and Wake Forest since {site.founded}.
+              </p>
+              <div data-reveal style={{ ["--d" as string]: "400ms" }} className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <div className="flex items-center gap-3">
+                  <Stars className="h-5 w-5" />
+                  <span className="text-sm">
+                    <strong className="text-paper">4.9 out of 5</strong>
+                    <span className="text-mint/80"> · 1,240 local reviews</span>
                   </span>
-                  <span className="font-semibold leading-tight text-spruce">{s.nav}</span>
-                </Link>
-              ))}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-mint/90">
+                  <Icon name="shield" className="h-5 w-5 text-gold" /> Licensed, insured &amp; background-checked
+                </div>
+              </div>
             </div>
-            <div className="mt-6 flex items-center gap-3 rounded-2xl bg-mint/60 p-4 text-sm text-spruce">
-              <Icon name="clock" className="h-5 w-5 shrink-0" />
-              <span>
-                <strong>Next available:</strong> today, 2–4 pm in Raleigh
-              </span>
+
+            {/* Quick booking card */}
+            <div data-reveal style={{ ["--d" as string]: "240ms" }} className="relative z-10 -mb-24 rounded-[2rem] bg-paper p-6 shadow-[var(--shadow-deep)] sm:p-8 lg:-mb-28">
+              <p className="font-display text-[1.7rem] font-bold leading-tight text-spruce">What can we help with?</p>
+              <p className="mt-1.5 text-muted">Pick one and choose a time. It takes about a minute.</p>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {services.map((s, i) => (
+                  <Link
+                    key={s.id}
+                    href={`/book?service=${s.id}`}
+                    className="group flex flex-col gap-3 rounded-2xl border-2 border-line bg-linen p-4 transition-all hover:-translate-y-0.5 hover:border-copper hover:bg-paper"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-spruce text-mint transition-colors group-hover:bg-copper group-hover:text-white">
+                      <Icon name={["snow", "flame", "home", "thermo"][i]} className="h-5 w-5" />
+                    </span>
+                    <span className="font-semibold leading-tight text-spruce">{s.nav}</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-5 flex items-center justify-between gap-3 rounded-2xl bg-mint/60 px-4 py-3 text-sm text-spruce">
+                <span className="flex items-center gap-2">
+                  <Icon name="clock" className="h-5 w-5 shrink-0" />
+                  <span>
+                    <strong>Next available:</strong> today, 2–4 pm
+                  </span>
+                </span>
+                <a href={site.phoneHref} className="hidden shrink-0 font-semibold underline-offset-4 hover:underline sm:inline">
+                  or call
+                </a>
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* 2. Trust strip */}
-      <section className="border-b border-line bg-paper">
-        <Container className="grid gap-8 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {trust.map((t, i) => (
-            <div key={t.title} data-reveal style={{ ["--d" as string]: `${i * 70}ms` }} className="flex gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linen text-copper">
-                <Icon name={t.icon} className="h-6 w-6" />
-              </span>
-              <span>
-                <span className="block font-display text-lg font-bold text-spruce">{t.title}</span>
-                <span className="text-sm leading-relaxed text-muted">{t.body}</span>
-              </span>
-            </div>
-          ))}
-        </Container>
-      </section>
-
-      {/* 3. Services */}
-      <section className="py-20 sm:py-28">
+      {/* 2. Services: tall photo tiles, numbered in copper, staggered on wide screens. */}
+      <section className="overflow-hidden pb-20 pt-36 sm:pb-28 lg:pt-44">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHead eyebrow="Our services" title="Everything that keeps your home comfortable." />
@@ -127,87 +108,78 @@ export default function Home() {
               All services and prices <Arrow />
             </ButtonLink>
           </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        </Container>
+        <Container className="mt-12">
+          <ul className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-6 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 lg:[&>li:nth-child(even)]:translate-y-10 [&::-webkit-scrollbar]:hidden">
             {services.map((s, i) => (
-              <Link
-                key={s.id}
-                href={`/services#${s.id}`}
-                data-reveal
-                style={{ ["--d" as string]: `${i * 80}ms` }}
-                className="group flex flex-col overflow-hidden rounded-3xl bg-paper shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-lift)]"
-              >
-                <div className="zoom-img relative aspect-[4/3] overflow-hidden">
-                  <Image src={s.image} alt={s.imageAlt} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
-                  <span className="absolute left-4 top-4 rounded-full bg-paper/95 px-3 py-1 text-xs font-bold uppercase tracking-wider text-spruce">
+              <li key={s.id} data-reveal style={{ ["--d" as string]: `${i * 90}ms` }} className="w-[78%] shrink-0 snap-start sm:w-auto">
+                <Link href={`/services#${s.id}`} className="group tile zoom-img relative block aspect-[3/4] overflow-hidden rounded-[1.75rem] bg-spruce-2 text-paper shadow-[var(--shadow-card)] transition-shadow duration-500 hover:shadow-[var(--shadow-deep)]">
+                  <Image src={s.image} alt={s.imageAlt} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 80vw" className="object-cover" />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-spruce-2 via-spruce-2/35 to-transparent" />
+                  <span className="condensed absolute left-5 top-4 font-display text-[4rem] font-extrabold leading-none text-gold/90">0{i + 1}</span>
+                  <span className="absolute right-4 top-4 rounded-full bg-paper/95 px-3 py-1 text-xs font-bold uppercase tracking-wider text-spruce">
                     {s.price === "Free" ? "Free estimate" : `From ${s.price}`}
                   </span>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-xl font-bold text-spruce">{s.name}</h3>
-                  <p className="mt-2 flex-1 leading-relaxed text-muted">{s.short}</p>
-                  <span className="mt-5 flex items-center gap-2 font-semibold text-copper">
-                    Learn more <Arrow />
+                  <span className="absolute inset-x-0 bottom-0 p-6">
+                    <span className="block font-display text-[1.65rem] font-bold leading-[1.05] tracking-tight">{s.name}</span>
+                    <span className="mt-2 block text-sm leading-snug text-mint/90">{s.short}</span>
+                    <span className="mt-4 flex h-11 w-11 items-center justify-center rounded-full bg-paper text-spruce transition-all duration-300 group-hover:bg-copper group-hover:text-white">
+                      <Arrow className="h-5 w-5" />
+                    </span>
                   </span>
-                </div>
-              </Link>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
-      {/* 4. Why Saltbrook */}
-      <section className="bg-paper py-20 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div data-reveal className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] sm:aspect-[5/4] lg:aspect-[4/5]">
-              <Image src="/images/tech-arrival.jpg" alt="Saltbrook technician arriving with a tool belt" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
-            </div>
-            <div className="absolute -bottom-6 right-4 max-w-[15rem] rounded-3xl bg-spruce p-6 text-paper shadow-[var(--shadow-lift)] sm:-right-6">
-              <p className="font-display text-5xl font-extrabold text-gold">
-                <Counter value={92} suffix="%" />
-              </p>
-              <p className="mt-2 text-sm leading-snug text-mint">of repairs finished on the first visit, because our vans carry the parts.</p>
-            </div>
+      <Ticker items={promises} />
+
+      {/* 3. The dial: one crew for both seasons. */}
+      <section className="relative isolate overflow-hidden bg-spruce-2 pb-24 pt-28 text-paper sm:pb-32 sm:pt-36">
+        <div aria-hidden="true" className="absolute -left-40 top-20 -z-10 h-[32rem] w-[32rem] rounded-full bg-cool/20 blur-[120px]" />
+        <div aria-hidden="true" className="absolute -right-40 bottom-0 -z-10 h-[32rem] w-[32rem] rounded-full bg-copper/30 blur-[120px]" />
+        <Container className="grid items-center gap-16 lg:grid-cols-[0.95fr_1.05fr]">
+          <div data-reveal className="order-2 lg:order-1">
+            <ThermoDial />
           </div>
-          <div>
+          <div className="order-1 lg:order-2">
             <SectionHead
+              light
+              size="lg"
               eyebrow="Why Saltbrook"
               title={
                 <>
-                  The straight answer, <span className="text-copper">every time.</span>
+                  Outside swings sixty degrees. <span className="text-gold">Inside, it&apos;s 71.</span>
                 </>
               }
-              intro="We grew the slow way, through neighbors telling neighbors. So we still work like every visit is a referral: show up on time, explain what we find, and never sell a system you don't need."
+              intro="A January morning and a July afternoon ask very different things of a house. One Saltbrook crew handles both: heat pumps and gas furnaces in winter, air conditioning in summer, with the same technician who knows your system."
             />
-            <ul className="mt-8 space-y-4">
+            <ul className="mt-10 grid gap-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               {[
-                ["Repair before replace", "If a repair makes sense, we'll say so, even when a new system would earn us more."],
-                ["Clean, respectful visits", "Shoe covers, drop cloths, and we leave the space tidier than we found it."],
+                ["Repair before replace", "If a repair makes sense we'll say so, even when a new system would earn us more."],
+                ["Clean, respectful visits", "Shoe covers, drop cloths, and a tidier space than we found."],
                 ["One technician, start to finish", "The person who diagnoses the problem is the one who fixes it."],
               ].map(([t, d], i) => (
-                <li key={t} data-reveal style={{ ["--d" as string]: `${i * 80}ms` }} className="flex gap-4">
-                  <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-copper text-white">
-                    <Icon name="check" className="h-4 w-4" />
-                  </span>
-                  <span>
-                    <span className="block font-display text-lg font-bold text-spruce">{t}</span>
-                    <span className="leading-relaxed text-muted">{d}</span>
-                  </span>
+                <li key={t} data-reveal style={{ ["--d" as string]: `${i * 80}ms` }} className="border-t border-white/15 pt-5">
+                  <span className="block font-display text-lg font-bold text-paper">{t}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-mint/80">{d}</span>
                 </li>
               ))}
             </ul>
           </div>
         </Container>
-        <Container className="mt-20">
-          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl bg-line lg:grid-cols-4">
-            {site.stats.map((s) => (
-              <div key={s.label} className="bg-linen px-6 py-8 text-center">
+        <Container className="mt-24">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+            {site.stats.map((s, i) => (
+              <div key={s.label} data-reveal style={{ ["--d" as string]: `${i * 80}ms` }} className="border-l-2 border-copper pl-5">
                 <dt className="sr-only">{s.label}</dt>
                 <dd>
-                  <span className="block font-display text-4xl font-extrabold text-spruce sm:text-5xl">
+                  <span className="condensed block font-display text-[3.6rem] font-extrabold leading-none text-paper sm:text-[5rem]">
                     <Counter value={s.value} suffix={s.suffix} decimals={s.decimals ?? 0} />
                   </span>
-                  <span className="mt-2 block text-sm text-muted">{s.label}</span>
+                  <span className="mt-3 block text-sm text-mint/80">{s.label}</span>
                 </dd>
               </div>
             ))}
@@ -215,29 +187,40 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 5. How a visit works */}
+      {/* 4. How a visit works */}
       <section className="py-20 sm:py-28">
-        <Container>
-          <SectionHead center eyebrow="How it works" title="From call to cool air, without the guesswork." />
-          <ol className="relative mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <span aria-hidden="true" className="absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-copper/40 to-transparent lg:block" />
+        <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <SectionHead eyebrow="How it works" title="From call to cool air, without the guesswork." intro="Four steps, one technician, and a price you approve before anything happens." />
+            <div className="mt-8">
+              <ButtonLink href="/book" className="group">
+                Book a visit <Arrow />
+              </ButtonLink>
+            </div>
+          </div>
+          <ol className="grid gap-4 sm:grid-cols-2">
             {visitSteps.map((p, i) => (
-              <li key={p.title} data-reveal style={{ ["--d" as string]: `${i * 100}ms` }} className="relative rounded-3xl bg-paper p-7 shadow-[var(--shadow-card)]">
-                <span className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-spruce font-display text-2xl font-extrabold text-gold">0{i + 1}</span>
-                <h3 className="mt-6 text-xl font-bold text-spruce">{p.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{p.body}</p>
+              <li key={p.title} data-reveal style={{ ["--d" as string]: `${i * 90}ms` }} className={`group relative overflow-hidden rounded-[1.75rem] bg-paper p-7 shadow-[var(--shadow-card)] transition-transform duration-500 hover:-translate-y-1 ${i % 2 ? "sm:translate-y-8" : ""}`}>
+                <span aria-hidden="true" className="condensed absolute -right-2 -top-6 font-display text-[7rem] font-extrabold leading-none text-sand transition-colors duration-500 group-hover:text-copper/20">
+                  0{i + 1}
+                </span>
+                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-spruce font-display text-base font-extrabold text-gold">0{i + 1}</span>
+                <h3 className="relative mt-10 text-[1.4rem] font-bold text-spruce">{p.title}</h3>
+                <p className="relative mt-2 leading-relaxed text-muted">{p.body}</p>
               </li>
             ))}
           </ol>
         </Container>
       </section>
 
-      {/* 6. Comfort Club */}
+      {/* 5. Comfort Club */}
       <section className="px-3 sm:px-5">
         <div className="relative isolate mx-auto max-w-[90rem] overflow-hidden rounded-[2.5rem] bg-spruce text-paper">
-          <Image src="/images/living-room.jpg" alt="" fill sizes="100vw" className="-z-10 object-cover opacity-25" />
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-spruce via-spruce/95 to-spruce/60" />
-          <Container className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="duotone absolute inset-0 -z-10">
+            <Image src="/images/living-room.jpg" alt="" fill sizes="100vw" className="object-cover opacity-30" />
+          </div>
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-spruce via-spruce/95 to-spruce/50" />
+          <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <SectionHead
                 light
@@ -258,10 +241,10 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div data-reveal className="rounded-[2rem] bg-paper p-8 text-ink shadow-[var(--shadow-lift)] sm:p-10">
+            <div data-reveal className="rounded-[2rem] bg-paper p-8 text-ink shadow-[var(--shadow-deep)] sm:p-10 lg:rotate-[1.5deg] lg:transition-transform lg:duration-500 lg:hover:rotate-0">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-copper">Membership</p>
               <p className="mt-3 flex items-baseline gap-2">
-                <span className="font-display text-7xl font-extrabold text-spruce">${club.price}</span>
+                <span className="condensed font-display text-[6.5rem] font-extrabold leading-none text-spruce">${club.price}</span>
                 <span className="text-lg text-muted">/ month</span>
               </p>
               <p className="mt-2 text-muted">or ${club.annual} a year. Cancel any time.</p>
@@ -276,27 +259,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Reviews */}
-      <section className="mt-20 bg-spruce-2 py-20 text-paper sm:mt-28 sm:py-28">
+      {/* 6. Reviews: a slow drift, angled edges. */}
+      <section className="slant-tb -mb-10 mt-24 overflow-hidden bg-spruce-2 pb-32 pt-28 text-paper sm:mt-32 sm:pb-40 sm:pt-36">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <SectionHead light eyebrow="Reviews" title="Neighbors who stopped sweating it." />
             <div data-reveal className="flex flex-wrap items-center gap-6 lg:justify-end">
               <div>
-                <p className="font-display text-6xl font-extrabold">4.9</p>
-                <Stars className="h-5 w-5" />
+                <p className="condensed font-display text-7xl font-extrabold leading-none">4.9</p>
+                <Stars className="mt-2 h-5 w-5" />
               </div>
               <p className="max-w-[14rem] text-mint">Average across 1,240 reviews from homeowners in the Triangle.</p>
             </div>
           </div>
-          <div className="mt-12">
-            <Reviews />
-          </div>
+        </Container>
+        <Container className="mt-12">
+          <Reviews />
         </Container>
       </section>
 
-      {/* 8. Service area */}
-      <section className="py-20 sm:py-28">
+      {/* 7. Service area */}
+      <section className="pb-20 pt-28 sm:pb-28 sm:pt-36">
         <Container className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionHead eyebrow="Service area" title="Five towns, one van ride away." intro="Our shop is in Raleigh, so most of the Triangle gets a same-day visit." />
@@ -317,13 +300,14 @@ export default function Home() {
               </ButtonLink>
             </div>
           </div>
-          <div data-reveal className="relative aspect-[4/5] overflow-hidden rounded-[2rem] sm:aspect-[5/4] lg:aspect-[4/5]">
+          <div data-reveal className="duotone relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[var(--shadow-lift)] sm:aspect-[5/4] lg:aspect-[4/5] lg:-rotate-1">
             <Image src="/images/porch-home.jpg" alt="A two-story home with a covered porch in the Triangle" fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+            <span className="absolute bottom-5 left-5 rounded-full bg-paper/95 px-4 py-2 text-sm font-semibold text-spruce">Raleigh, NC</span>
           </div>
         </Container>
       </section>
 
-      {/* 9. FAQ */}
+      {/* 8. FAQ */}
       <section className="bg-paper py-20 sm:py-28">
         <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
@@ -339,15 +323,15 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 10. Final CTA */}
-      <section className="relative isolate overflow-hidden bg-copper">
-        <Image src="/images/van.jpg" alt="" fill sizes="100vw" className="-z-10 object-cover opacity-20 mix-blend-multiply" />
-        <Container className="flex flex-col items-start justify-between gap-8 py-16 sm:py-20 lg:flex-row lg:items-center">
-          <div className="max-w-2xl text-white">
-            <Eyebrow light>Ready when you are</Eyebrow>
-            <h2 className="mt-4 text-4xl font-extrabold leading-[1.02] sm:text-6xl">Too hot, too cold, or too loud? Let&apos;s fix it today.</h2>
-          </div>
-          <div className="flex flex-wrap gap-3">
+      {/* 9. Final CTA */}
+      <section className="relative isolate overflow-hidden bg-copper text-white">
+        <Image src="/images/van.jpg" alt="" fill sizes="100vw" className="-z-10 object-cover opacity-25 mix-blend-multiply" />
+        <Container className="py-20 sm:py-28">
+          <Eyebrow light>Ready when you are</Eyebrow>
+          <h2 className="mt-5 max-w-4xl text-[2.7rem] font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-7xl lg:text-[6rem]">
+            <Words text="Too hot, too cold, or *too loud?* Let's fix it today." accent="text-spruce-2" />
+          </h2>
+          <div className="mt-10 flex flex-wrap gap-3">
             <ButtonLink href="/book" variant="white">
               Book online
             </ButtonLink>

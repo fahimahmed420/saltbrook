@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties, ReactNode } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { site } from "@/content/site";
 
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -9,30 +9,65 @@ export function Container({ children, className = "" }: { children: ReactNode; c
 
 export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <p className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] ${light ? "text-mint" : "text-copper"}`}>
-      <span aria-hidden="true" className={`h-px w-6 ${light ? "bg-mint" : "bg-copper"}`} />
+    <p className={`flex items-center gap-2.5 text-[0.8rem] font-semibold uppercase tracking-[0.18em] ${light ? "text-gold" : "text-copper"}`}>
+      <span aria-hidden="true" className={`h-2 w-2 rounded-full ${light ? "bg-gold" : "bg-copper"}`} />
       {children}
     </p>
   );
 }
 
-export function SectionHead({ eyebrow, title, intro, light = false, center = false }: { eyebrow: string; title: ReactNode; intro?: string; light?: boolean; center?: boolean }) {
+/**
+ * Headline text whose words rise into view one after another. Wrap a run in *asterisks* to colour it.
+ * Server-rendered as plain text; the animation is opt-in through the "js" class.
+ */
+export function Words({ text, accent = "text-gold", delay = 0 }: { text: string; accent?: string; delay?: number }) {
+  const parts = text.split(/(\*[^*]+\*)/).filter(Boolean);
+  let i = 0;
+  return (
+    <span data-reveal-words style={{ ["--d" as string]: `${delay}ms` }}>
+      {parts.map((part) => {
+        const hot = part.startsWith("*");
+        return part
+          .replace(/\*/g, "")
+          .split(" ")
+          .filter(Boolean)
+          .map((w) => {
+            const k = i++;
+            // The space sits between the inline-block words, otherwise it collapses inside them.
+            return (
+              <Fragment key={k}>
+                <span className="word">
+                  <span className={hot ? accent : ""} style={{ ["--i" as string]: k }}>
+                    {w}
+                  </span>
+                </span>{" "}
+              </Fragment>
+            );
+          });
+      })}
+    </span>
+  );
+}
+
+export function SectionHead({ eyebrow, title, intro, light = false, center = false, size = "md" }: { eyebrow: string; title: ReactNode; intro?: string; light?: boolean; center?: boolean; size?: "md" | "lg" }) {
+  const h = size === "lg" ? "text-[2.6rem] sm:text-6xl lg:text-[4.6rem]" : "text-[2.3rem] sm:text-5xl lg:text-[3.6rem]";
   return (
     <div data-reveal className={`max-w-3xl ${center ? "mx-auto text-center [&>p:first-child]:justify-center" : ""}`}>
       <Eyebrow light={light}>{eyebrow}</Eyebrow>
-      <h2 className={`mt-4 text-[2.1rem] font-bold leading-[1.05] sm:text-5xl lg:text-[3.4rem] ${light ? "text-paper" : "text-spruce"}`}>{title}</h2>
-      {intro && <p className={`mt-5 text-lg leading-relaxed ${light ? "text-mint/90" : "text-muted"}`}>{intro}</p>}
+      <h2 className={`mt-5 leading-[0.98] ${h} ${light ? "text-paper" : "text-spruce"}`}>{title}</h2>
+      {intro && <p className={`mt-6 text-lg leading-relaxed sm:text-xl ${light ? "text-mint/90" : "text-muted"}`}>{intro}</p>}
     </div>
   );
 }
 
 const base = "inline-flex min-h-13 items-center justify-center gap-2.5 rounded-full px-7 text-base font-semibold transition-all duration-300";
 const variants = {
-  primary: "bg-copper text-white shadow-[0_10px_24px_-10px_rgb(196_98_45/0.8)] hover:-translate-y-0.5 hover:bg-copper-2",
+  primary: "bg-copper text-white shadow-[0_12px_28px_-10px_rgb(196_98_45/0.9)] hover:-translate-y-0.5 hover:bg-copper-2 hover:shadow-[0_16px_32px_-10px_rgb(196_98_45/0.9)]",
   dark: "bg-spruce text-paper hover:-translate-y-0.5 hover:bg-spruce-2",
   outline: "border-2 border-spruce/80 text-spruce hover:bg-spruce hover:text-paper",
   light: "border-2 border-white/60 text-white backdrop-blur hover:bg-white hover:text-spruce",
   white: "bg-white text-spruce hover:-translate-y-0.5 hover:bg-linen",
+  gold: "bg-gold text-spruce-2 hover:-translate-y-0.5 hover:bg-[#f7c660]",
 };
 type Variant = keyof typeof variants;
 
@@ -69,6 +104,30 @@ export function Stars({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
+/** A thin copper band of promises that drifts sideways. Pauses on hover. */
+export function Ticker({ items }: { items: string[] }) {
+  const row = (hidden = false) => (
+    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
+      {items.map((t) => (
+        <li key={t} className="flex items-center gap-5 pr-5 font-display text-lg font-bold tracking-tight text-paper sm:text-xl">
+          {t}
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-gold" />
+        </li>
+      ))}
+    </ul>
+  );
+  return (
+    <div className="marquee bg-copper py-4" aria-label="Our promises">
+      <div className="marquee-track flex w-max animate-marquee">
+        {row()}
+        {row(true)}
+        {row(true)}
+        {row(true)}
+      </div>
+    </div>
+  );
+}
+
 const paths: Record<string, ReactNode> = {
   phone: <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" />,
   arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
@@ -102,19 +161,39 @@ export function Icon({ name, className = "h-5 w-5", style }: { name: keyof typeo
   );
 }
 
-export function PageHero({ eyebrow, title, intro, image, imageAlt, children }: { eyebrow: string; title: ReactNode; intro: string; image: string; imageAlt: string; children?: ReactNode }) {
+/** Interior page opener: a tall tinted photo, a huge headline, and a curved edge into the page. */
+export function PageHero({ eyebrow, title, intro, image, imageAlt, children, aside }: { eyebrow: string; title: string; intro: string; image: string; imageAlt: string; children?: ReactNode; aside?: ReactNode }) {
   return (
     <section className="relative isolate overflow-hidden bg-spruce-2 text-paper">
-      <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-10 object-cover opacity-45" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-spruce-2 via-spruce-2/85 to-spruce-2/30" />
-      <Container className="pb-16 pt-14 sm:pb-24 sm:pt-20">
-        <div className="max-w-2xl">
-          <Eyebrow light>{eyebrow}</Eyebrow>
-          <h1 className="mt-4 text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">{title}</h1>
-          <p className="mt-6 text-lg leading-relaxed text-mint sm:text-xl">{intro}</p>
-          {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
+      <div className="duotone veil absolute inset-0 -z-10">
+        <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="object-cover" />
+      </div>
+      <Container className="flex min-h-[52svh] flex-col justify-end pb-20 pt-16 sm:pb-28 sm:pt-24 lg:min-h-[60svh]">
+        <div className={`grid gap-10 ${aside ? "lg:grid-cols-[1.2fr_0.8fr] lg:items-end" : ""}`}>
+          <div className="max-w-3xl">
+            <div data-reveal>
+              <Eyebrow light>{eyebrow}</Eyebrow>
+            </div>
+            <h1 className="mt-5 text-[3rem] font-extrabold leading-[0.95] sm:text-7xl lg:text-[6rem]">
+              <Words text={title} />
+            </h1>
+            <p data-reveal style={{ ["--d" as string]: "240ms" }} className="mt-7 max-w-xl text-lg leading-relaxed text-mint sm:text-xl">
+              {intro}
+            </p>
+            {children && (
+              <div data-reveal style={{ ["--d" as string]: "320ms" }} className="mt-9 flex flex-wrap gap-3">
+                {children}
+              </div>
+            )}
+          </div>
+          {aside && (
+            <div data-reveal style={{ ["--d" as string]: "200ms" }}>
+              {aside}
+            </div>
+          )}
         </div>
       </Container>
+      <div aria-hidden="true" className="curve-cap" />
     </section>
   );
 }

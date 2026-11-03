@@ -30,11 +30,7 @@ export default function ComfortClubPage() {
     <>
       <PageHero
         eyebrow="Comfort Club"
-        title={
-          <>
-            Fewer breakdowns. <span className="text-gold">Front of the line</span> when one happens.
-          </>
-        }
+        title="Fewer breakdowns. *Front of the line* when one happens."
         intro={`Two seasonal tune-ups, priority booking and 15% off every repair, for $${club.price} a month. No contracts.`}
         image="/images/living-room.jpg"
         imageAlt="Bright living room with a sectional sofa and fireplace"

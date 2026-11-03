@@ -1,5 +1,5 @@
 import { site } from "@/content/site";
-import { Container, Icon, Stars } from "@/components/ui";
+import { Container, Icon, Stars, Words } from "@/components/ui";
 import { OpenNow } from "@/components/OpenNow";
 import { pageMeta } from "@/lib/seo";
 import { BookingForm } from "./BookingForm";
@@ -12,11 +12,14 @@ export const metadata = pageMeta({
 
 export default function BookPage() {
   return (
-    <section className="relative bg-gradient-to-b from-spruce-2 from-[22rem] to-linen to-[22rem] pb-20 sm:pb-28">
-      <Container className="pt-12 text-paper sm:pt-16">
+    <section className="relative overflow-hidden bg-gradient-to-b from-spruce-2 from-[26rem] to-linen to-[26rem] pb-20 sm:pb-28">
+      <div aria-hidden="true" className="absolute -right-32 top-0 h-[26rem] w-[40rem] rounded-full bg-copper/25 blur-[120px]" />
+      <Container className="relative pt-12 text-paper sm:pt-16">
         <OpenNow />
-        <h1 className="mt-5 text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl">Book a visit</h1>
-        <p className="mt-4 max-w-xl text-lg text-mint">Four quick steps. We&apos;ll call to confirm within 30 minutes during business hours.</p>
+        <h1 className="mt-6 text-[3.2rem] font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-7xl lg:text-[6rem]">
+          <Words text="Book a visit." />
+        </h1>
+        <p className="mt-5 max-w-xl text-lg text-mint sm:text-xl">Four quick steps. We&apos;ll call to confirm within 30 minutes during business hours.</p>
       </Container>
       <Container className="mt-10 grid items-start gap-8 lg:grid-cols-[1fr_22rem]">
         <BookingForm />

@@ -24,7 +24,7 @@ export function Reveal() {
         }),
       { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
     );
-    const els = document.querySelectorAll("[data-reveal]:not(.in)");
+    const els = document.querySelectorAll("[data-reveal]:not(.in), [data-reveal-words]:not(.in)");
     // Anything already on screen is shown immediately so nothing flashes.
     els.forEach((el) => {
       const r = el.getBoundingClientRect();

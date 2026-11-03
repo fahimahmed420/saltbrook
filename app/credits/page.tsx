@@ -29,7 +29,7 @@ export default function CreditsPage() {
           </dl>
           <h2 className="mt-12 text-2xl font-bold text-spruce">Type and tools</h2>
           <p className="mt-3 text-lg leading-relaxed text-muted">
-            Bricolage Grotesque and Inter (SIL Open Font License). Built with Next.js 16, React 19, TypeScript and Tailwind CSS 4. Logo, map and icons drawn for this site.
+            Bricolage Grotesque and Instrument Sans (SIL Open Font License). Built with Next.js 16, React 19, TypeScript and Tailwind CSS 4. Logo, map and icons drawn for this site.
           </p>
         </div>
       </Container>
