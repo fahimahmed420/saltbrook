@@ -21,7 +21,7 @@ export default function Home() {
           name: site.name,
           description: site.description,
           url: site.url,
-          image: `${site.url}/images/family.jpg`,
+          image: `${site.url}/images/living-room.jpg`,
           telephone: "+1-919-555-0142",
           foundingDate: String(site.founded),
           address: { "@type": "PostalAddress", addressLocality: site.city, addressRegion: site.region, addressCountry: "US" },
@@ -37,7 +37,7 @@ export default function Home() {
       {/* 1. Hero: the photo fills the screen; the booking card hangs over the edge into the next section. */}
       <section className="relative isolate bg-spruce-2">
         <div className="duotone veil absolute inset-0 -z-10 overflow-hidden">
-          <Image src="/images/family.jpg" alt="A family relaxing together on the sofa at home" fill priority sizes="100vw" className="object-cover object-[72%_30%]" />
+          <Image src="/images/living-room.jpg" alt="A sunlit living room with a fire going in the fireplace" fill priority sizes="100vw" className="object-cover object-[55%_60%]" />
         </div>
         <Container className="flex min-h-[calc(100svh-4.5rem)] flex-col justify-end pb-0 pt-10 sm:pt-16 lg:min-h-[calc(100svh-7.5rem)]">
           <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
@@ -217,7 +217,7 @@ export default function Home() {
       <section className="px-3 sm:px-5">
         <div className="relative isolate mx-auto max-w-[90rem] overflow-hidden rounded-[2.5rem] bg-spruce text-paper">
           <div className="duotone absolute inset-0 -z-10">
-            <Image src="/images/living-room.jpg" alt="" fill sizes="100vw" className="object-cover opacity-30" />
+            <Image src="/images/fireplace.jpg" alt="" fill sizes="100vw" className="object-cover opacity-30" />
           </div>
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-spruce via-spruce/95 to-spruce/50" />
           <Container className="grid gap-12 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

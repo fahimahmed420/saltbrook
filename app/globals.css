@@ -265,3 +265,9 @@ p {
     width: max-content;
   }
 }
+/* On phones the hero photo sits behind the whole intro, so the multiply layer goes a little deeper for legibility. */
+@media (max-width: 640px) {
+  .veil::before {
+    opacity: 0.68;
+  }
+}
