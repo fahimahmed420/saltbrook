@@ -63,7 +63,7 @@ export function Header() {
       </div>
 
       <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-paper/95 shadow-[0_8px_30px_-12px_rgb(12_59_57/0.25)] backdrop-blur-md" : "bg-paper"}`}>
-        <Container className={`flex items-center justify-between gap-6 transition-all duration-300 ${scrolled ? "h-16" : "h-[4.5rem] lg:h-20"}`}>
+        <Container className={`flex items-center justify-between gap-4 transition-all duration-300 xl:gap-6 ${scrolled ? "h-16" : "h-[4.5rem] lg:h-20"}`}>
           <Link href="/" aria-label={`${site.name} home`} className="shrink-0 py-1">
             <Logo />
           </Link>
@@ -75,7 +75,7 @@ export function Header() {
                 aria-expanded={dropdown}
                 aria-controls="services-menu"
                 onClick={() => setDropdown((d) => !d)}
-                className={`flex items-center gap-1 rounded-full px-4 py-2.5 font-semibold transition-colors hover:bg-linen ${active("/services") ? "text-copper" : "text-ink"}`}
+                className={`flex items-center gap-1 rounded-full px-3 py-2.5 font-semibold transition-colors hover:bg-linen xl:px-4 ${active("/services") ? "text-copper" : "text-ink"}`}
               >
                 Services <Icon name="chevron" className={`h-4 w-4 transition-transform ${dropdown ? "rotate-180" : ""}`} />
               </button>
@@ -101,15 +101,16 @@ export function Header() {
                 key={l.href}
                 href={l.href}
                 aria-current={active(l.href) ? "page" : undefined}
-                className={`rounded-full px-4 py-2.5 font-semibold transition-colors hover:bg-linen ${active(l.href) ? "text-copper" : "text-ink"}`}
+                className={`whitespace-nowrap rounded-full px-3 py-2.5 font-semibold transition-colors hover:bg-linen xl:px-4 ${active(l.href) ? "text-copper" : "text-ink"}`}
               >
                 {l.label}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-4 lg:flex">
-            <a href={site.phoneHref} className="group flex items-center gap-3">
+          {/* nowrap throughout: at the 1024px breakpoint "Comfort Club", the phone number and "Book online" used to break onto two lines. */}
+          <div className="hidden items-center gap-3 lg:flex xl:gap-4">
+            <a href={site.phoneHref} className="group flex items-center gap-3 whitespace-nowrap">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-mint text-spruce transition-colors group-hover:bg-copper group-hover:text-white">
                 <Icon name="phone" className="h-5 w-5" />
               </span>
@@ -118,7 +119,7 @@ export function Header() {
                 <span className="font-display text-lg font-bold text-spruce">{site.phone}</span>
               </span>
             </a>
-            <Link href="/book" className="inline-flex min-h-12 items-center rounded-full bg-copper px-6 font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-copper-2">
+            <Link href="/book" className="inline-flex min-h-12 items-center whitespace-nowrap rounded-full bg-copper px-5 font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-copper-2 xl:px-6">
               Book online
             </Link>
           </div>

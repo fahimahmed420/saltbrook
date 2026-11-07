@@ -117,7 +117,7 @@ export function Ticker({ items }: { items: string[] }) {
     </ul>
   );
   return (
-    <div className="marquee bg-copper py-4" aria-label="Our promises">
+    <div role="marquee" className="marquee bg-copper py-4" aria-label="Our promises">
       <div className="marquee-track flex w-max animate-marquee">
         {row()}
         {row(true)}

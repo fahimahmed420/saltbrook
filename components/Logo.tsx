@@ -9,7 +9,7 @@ export function Logo({ light = false }: { light?: boolean }) {
       </svg>
       <span className={`font-display text-xl font-extrabold leading-none tracking-tight ${light ? "text-paper" : "text-spruce"}`}>
         Saltbrook
-        <span className={`mt-1 block text-[0.72rem] font-bold uppercase tracking-[0.22em] ${light ? "text-mint" : "text-copper"}`}>Heating &amp; Air</span>
+        <span className={`mt-1 block text-[0.75rem] font-bold uppercase tracking-[0.22em] ${light ? "text-mint" : "text-copper"}`}>Heating &amp; Air</span>
       </span>
     </span>
   );

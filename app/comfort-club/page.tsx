@@ -58,7 +58,8 @@ export default function ComfortClubPage() {
 
       <section className="bg-paper py-20 sm:py-28">
         <Container className="grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
+          {/* min-w-0: otherwise the table's minimum width widens this grid cell and the whole page on phones. */}
+          <div className="min-w-0">
             <SectionHead eyebrow="The math" title="Members pay less for the same care." />
             <div data-reveal className="mt-10 overflow-x-auto rounded-3xl border border-line">
               <table className="w-full min-w-[32rem] text-left">

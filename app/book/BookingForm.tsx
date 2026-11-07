@@ -71,16 +71,26 @@ export function BookingForm() {
   };
 
   const next = () => validate(STEP_FIELDS[step]) && setStep((s) => s + 1);
-  const submit = () =>
+  /** Sends the user back to the first step that has an error. */
+  const showErrors = (errs: Partial<Record<BookingField, string>>) => {
+    setErrors(errs);
+    const first = STEP_FIELDS.findIndex((f) => f.some((k) => errs[k]));
+    if (first >= 0) setStep(first);
+  };
+  const submit = () => {
+    // Every step validated on the way here, but check once more rather than throw inside the transition.
+    const parsed = bookingSchema.safeParse(data);
+    if (!parsed.success) {
+      const errs: Partial<Record<BookingField, string>> = {};
+      for (const i of parsed.error.issues) errs[i.path[0] as BookingField] ??= i.message;
+      return showErrors(errs);
+    }
     start(async () => {
-      const r = await submitBooking(bookingSchema.parse(data), honeypot.current?.value ?? "");
-      if (!r.ok && r.errors) {
-        setErrors(r.errors);
-        const first = STEP_FIELDS.findIndex((f) => f.some((k) => r.errors![k]));
-        if (first >= 0) setStep(first);
-      }
+      const r = await submitBooking(parsed.data, honeypot.current?.value ?? "");
+      if (!r.ok && r.errors) showErrors(r.errors);
       setResult(r);
     });
+  };
 
   if (result?.ok) {
     return (

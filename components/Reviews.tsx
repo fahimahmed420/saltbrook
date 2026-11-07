@@ -25,7 +25,7 @@ function Card({ r }: { r: (typeof reviews)[number] }) {
 /** Reviews drift past slowly; the row pauses while hovered or pressed. The second copy is decorative. */
 export function Reviews() {
   return (
-    <div className="marquee -mx-5 sm:-mx-8" aria-label="Customer reviews">
+    <div role="marquee" className="marquee -mx-5 sm:-mx-8" aria-label="Customer reviews">
       <div className="marquee-track flex w-max gap-5 pl-5 animate-marquee-slow sm:pl-8">
         {reviews.map((r) => (
           <Card key={r.name} r={r} />

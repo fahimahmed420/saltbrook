@@ -8,10 +8,10 @@ import { CallBar } from "@/components/CallBar";
 import { DemoBadge } from "@/components/DemoBadge";
 import { Reveal } from "@/components/Reveal";
 
-// Display: the full variable font, so headlines can use the optical-size and width axes (condensed numerals, tight big type).
-const display = Bricolage_Grotesque({ subsets: ["latin"], weight: "variable", axes: ["opsz", "wdth"], variable: "--font-bricolage", display: "swap" });
-// Body: a humanist sans with real italics; quieter than Bricolage so the two never fight.
-const body = Instrument_Sans({ subsets: ["latin"], weight: "variable", style: ["normal", "italic"], axes: ["wdth"], variable: "--font-instrument", display: "swap" });
+// Display: weight plus the width axis (the .condensed numerals). Optical size is left out: it doubled the file for no visible gain.
+const display = Bricolage_Grotesque({ subsets: ["latin"], weight: "variable", axes: ["wdth"], variable: "--font-bricolage", display: "swap" });
+// Body: a humanist sans, quieter than Bricolage so the two never fight. No italics or width axis: the site uses neither.
+const body = Instrument_Sans({ subsets: ["latin"], weight: "variable", variable: "--font-instrument", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

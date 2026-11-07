@@ -31,12 +31,17 @@ Case study: https://www.zordev.com/work/saltbrook-heating-and-air
 
 ## Credits
 - Photos: see /credits (Unsplash License)
-- Fonts: Bricolage Grotesque, Inter (SIL OFL)
+- Fonts: Bricolage Grotesque, Instrument Sans (SIL OFL)
 
 ## Tests (3 Nov 2026, Chrome emulation)
 - 8 phones × 8 routes: 0 sideways scroll, 0 tiny text, 0 console errors, tap targets at least 44px.
 - Flow test on iPhone 13, Pixel 5 and desktop: menu and dropdown navigation, quick-book preselect, every booking step, validation, Edit, final submit, rate limit.
 - Fixed during testing: the booking day picker widened the page on phones (hidden radios escaped their tiles), which made the browser zoom out.
+
+## Tests (7 Nov 2026, production build, Chrome emulation)
+- 9 routes at 375px: 0 sideways scroll, 0 text under 12px, 0 console errors. Booking flow driven end to end (validation per step, urgent toggle, Edit, final submit).
+- Fixed: Comfort Club comparison table widened the page to 534px on phones (grid cell needed min-w-0); About stats tile overflowed by 1px; header nav, phone and CTA wrapped onto two lines at 1024px; logo subtitle was 11.5px.
+- Faster: dropped unused font axes and italics (preloaded fonts 250 KB → 108 KB); grain overlay no longer uses a blend mode (full-page recomposite on every scroll); dial drop-shadow moved off the SVG that repaints on scroll; optimised images cached for a year.
 
 ## Measured numbers (keep every run)
 | Date | Tool + version | Page | Perf | A11y | SEO | JS KB | Notes |

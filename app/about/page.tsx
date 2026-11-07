@@ -44,8 +44,8 @@ export default function AboutPage() {
             <div data-reveal className="relative aspect-square overflow-hidden rounded-[2rem]">
               <Image src="/images/tech-work.jpg" alt="Technician working on equipment" fill sizes="(min-width: 1024px) 22vw, 50vw" className="object-cover" />
             </div>
-            <div data-reveal style={{ ["--d" as string]: "80ms" }} className="flex aspect-square flex-col justify-end rounded-[2rem] bg-spruce p-6 text-paper">
-              <p className="font-display text-5xl font-extrabold text-gold">
+            <div data-reveal style={{ ["--d" as string]: "80ms" }} className="flex aspect-square flex-col justify-end rounded-[2rem] bg-spruce p-5 text-paper sm:p-6">
+              <p className="condensed font-display text-4xl font-extrabold text-gold sm:text-5xl">
                 <Counter value={9800} suffix="+" />
               </p>
               <p className="mt-2 text-mint">homes kept comfortable across the Triangle</p>

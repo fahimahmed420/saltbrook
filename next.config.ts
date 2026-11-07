@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  images: {
+    // WebP only (the default): AVIF is smaller but its first encode per size takes seconds,
+    // and on a portfolio demo the first visitor after each deploy is the one who matters.
+    // The photos never change, so optimised variants can be cached for a year.
+    minimumCacheTTL: 31536000,
+  },
   turbopack: {
     rules: {
       "*.css": {
